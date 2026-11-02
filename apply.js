@@ -118,8 +118,14 @@ updateReferrerVisibility();
 const readFileAsBase64 = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
+    reader.onload = () => {
+      if (typeof reader.result === 'string') {
+        resolve(reader.result);
+      } else {
+        reject(new Error('프로필 사진을 읽지 못했어요.'));
+      }
+    };
+    reader.onerror = () => reject(new Error('프로필 사진을 읽지 못했어요.'));
     reader.readAsDataURL(file);
   });
 };
@@ -152,7 +158,7 @@ form.addEventListener('submit', async event => {
       if (value instanceof File) {
         // 이미지 파일이 첨부되어 있다면 Base64 텍스트로 인코딩하여 저장
         if (value.size > 0) {
-          payload['profilePhotoData'] = await readFileAsBase64(value);
+          payload['profilePhoto'] = await readFileAsBase64(value);
           payload['profilePhotoName'] = value.name;
         }
       } else if (payload[key]) {
