@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>참가자 신청 · 2026 동아리연합회 축제</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--deep:#15152B;--panel:#25244B;--panel2:#211F44;--ink:#F5F3FB;--mute:#B0B1D0;--line:rgba(176,177,208,.22);--gold:#F2D68A;--rose:#D94862}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(110% 45% at 50% 0,#38376E,var(--deep) 72%);color:var(--ink);font:400 16px/1.65 'IBM Plex Sans KR',sans-serif}button,input,select{font:inherit;color:inherit}:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{width:min(720px,calc(100% - 32px));margin:0 auto;padding:24px 0 64px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:32px}.back-link{color:var(--ink);text-decoration:none;font-size:14px}.back-link:hover{color:var(--gold)}.eyebrow{margin:0;color:var(--gold);font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.16em}.hero{margin-bottom:24px}.hero h1{margin:6px 0 8px;font-size:clamp(28px,7vw,44px);line-height:1.2}.hero p:last-child{margin:0;color:var(--mute)}
+.card{padding:24px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(42,41,83,.96),rgba(31,30,65,.94));box-shadow:0 16px 36px rgba(0,0,0,.24)}.form{display:grid;gap:18px}.group{display:grid;gap:12px;margin:0;padding:16px;border:1px solid rgba(176,177,208,.16);border-radius:13px;background:rgba(10,10,28,.2)}legend{padding:0 6px;color:var(--gold);font-weight:700;font-size:14px}.field{display:grid;gap:5px;font-size:13px;font-weight:600}.field input,.field select{width:100%;padding:11px 12px;border:1px solid rgba(176,177,208,.3);border-radius:9px;background:rgba(10,10,28,.42);font-size:14px}.field input[type=file]{padding:8px;font-size:12px}.field small{color:var(--mute);font-size:11px;font-weight:400}.required{color:#ff92a4}.options{display:flex;flex-wrap:wrap;gap:12px}.option,.consent{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:400}.option input,.consent input{accent-color:var(--gold)}.consents{display:grid;gap:10px}.consent{align-items:flex-start;line-height:1.45}.conditional[hidden]{display:none}.error{min-height:16px;color:#ff9dad;font-size:12px;font-weight:500}.form [aria-invalid=true]{border-color:#ff7189;box-shadow:0 0 0 2px rgba(255,113,137,.12)}.alert,.success{display:none;margin:0;padding:11px 13px;border-radius:9px;font-size:13px}.alert{background:rgba(217,72,98,.18);color:#ffb1bd}.success{background:rgba(168,230,203,.14);color:#b9f1d6}.alert.show,.success.show{display:block}.submit{width:100%;padding:13px 20px;border:0;border-radius:999px;background:var(--gold);color:#1E1C34;font-weight:700;cursor:pointer}.submit:disabled{opacity:.6;cursor:wait}
+@media(max-width:520px){.wrap{width:min(100% - 24px,720px);padding-top:16px}.card{padding:16px}.topbar{margin-bottom:24px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <nav class="topbar" aria-label="페이지 이동"><a class="back-link" href="index.html">← 메인 지도로 돌아가기</a><p class="eyebrow">TAKE #1 · APPLY</p></nav>
+  <header class="hero"><p class="eyebrow">PARTICIPANT REGISTRATION</p><h1>축제 참가 신청</h1><p>레드카펫 위 주인공이 되기 위한 정보를 입력해 주세요.</p></header>
+  <section class="card">
+    <form class="form" id="participantForm" novalidate>
+      <fieldset class="group"><legend>기본 인적사항</legend>
+        <label class="field">이름 <span class="required">*</span><input name="name" required autocomplete="name" maxlength="30"><span class="error" data-error="name"></span></label>
+        <label class="field">출생 연도 <span class="required">*</span><select name="birthYear" id="birthYear" required><option value="">선택해 주세요</option></select><span class="error" data-error="birthYear"></span></label>
+        <label class="field">만 나이 <small>출생 연도 기준 자동 계산</small><input name="age" id="age" type="number" readonly aria-readonly="true"><span class="error" data-error="age"></span></label>
+        <label class="field">전화번호 <span class="required">*</span><input name="phone" type="tel" required autocomplete="tel" placeholder="010-0000-0000" maxlength="20"><span class="error" data-error="phone"></span></label>
+        <label class="field">키 <small>선택 · cm</small><input name="height" type="number" min="50" max="250" inputmode="numeric"><span class="error" data-error="height"></span></label>
+      </fieldset>
+      <fieldset class="group"><legend>프로필</legend>
+        <label class="field">프로필 사진 <small>선택 · 2MB 이하</small><input name="profilePhoto" type="file" accept="image/*"><span class="error" data-error="profilePhoto"></span></label>
+        <label class="field">MBTI <select name="mbti"><option value="">선택해 주세요</option><option>ISTJ</option><option>ISFJ</option><option>INFJ</option><option>INTJ</option><option>ISTP</option><option>ISFP</option><option>INFP</option><option>INTP</option><option>ESTP</option><option>ESFP</option><option>ENFP</option><option>ENTP</option><option>ESTJ</option><option>ESFJ</option><option>ENFJ</option><option>ENTJ</option></select></label>
+        <label class="field">성별 <span class="required">*</span><select name="gender" required><option value="">선택해 주세요</option><option value="남성">남성</option><option value="여성">여성</option><option value="기타">기타</option><option value="응답하지 않음">응답하지 않음</option></select><span class="error" data-error="gender"></span></label>
+        <label class="field">연애 경험 횟수 <span class="required">*</span><select name="datingExperience" required><option value="">선택해 주세요</option><option value="0">없음 (0회)</option><option value="1">1회</option><option value="2">2회</option><option value="3">3회</option><option value="4">4회</option><option value="5+">5회 이상</option></select><span class="error" data-error="datingExperience"></span></label>
+        <label class="field">이상형 <small>선택</small><input name="idealType" maxlength="100"></label>
+      </fieldset>
+      <fieldset class="group"><legend>소속</legend>
+        <div class="field">구분 <span class="required">*</span><div class="options"><label class="option"><input type="radio" name="memberType" value="내부인" required> 내부인</label><label class="option"><input type="radio" name="memberType" value="외부인" required> 외부인</label></div><span class="error" data-error="memberType"></span></div>
+        <label class="field">소속 동아리 <small>선택</small><input name="club" maxlength="60"></label>
+        <label class="field conditional" id="referrerField">동아리 추천인 <span class="required">*</span><input name="referrer" maxlength="60"><small>외부인 선택 시 입력해 주세요.</small><span class="error" data-error="referrer"></span></label>
+      </fieldset>
+      <fieldset class="group"><legend>필수 동의</legend><div class="consents">
+        <label class="consent"><input type="checkbox" name="portraitConsent" required> [필수] 초상권 이용 동의</label>
+        <label class="consent"><input type="checkbox" name="contactConsent" required> [필수] 신체접촉 관련 안내 및 동의</label>
+        <label class="consent"><input type="checkbox" name="contentConsent" required> [필수] 콘텐츠/프로필 공개 동의</label>
+      </div><span class="error" data-error="consents"></span></fieldset>
+      <p class="alert" id="alert" role="alert"></p><p class="success" id="success" role="status"></p>
+      <button class="submit" type="submit">참가 신청서 제출하기</button>
+    </form>
+  </section>
+</main>
+<script src="js/apply.js" defer></script>
+</body>
+</html>
