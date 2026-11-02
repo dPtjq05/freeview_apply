@@ -1,4 +1,4 @@
-const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwUXn9fhXR67IlYkWGdqAesaiI4l6arY6bX0wP1rlys1kVn1Nk93V4pOlDEnwN_KTM18g/exec';
 
 const form = document.querySelector('#participantForm');
 const referrerField = document.querySelector('#referrerField');
