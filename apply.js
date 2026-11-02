@@ -22,6 +22,17 @@ function updateAge() {
 
 birthYearSelect.addEventListener('change', updateAge);
 
+form.querySelectorAll('.details-toggle').forEach(button => {
+  button.addEventListener('click', () => {
+    const detail = document.getElementById(button.getAttribute('aria-controls'));
+    if (!detail) return;
+
+    const expanded = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!expanded));
+    detail.hidden = expanded;
+  });
+});
+
 function setFieldError(name, message) {
   const error = form.querySelector(`[data-error="${name}"]`);
   if (error) error.textContent = message || '';
