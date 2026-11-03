@@ -1,8 +1,12 @@
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwUXn9fhXR67IlYkWGdqAesaiI4l6arY6bX0wP1rlys1kVn1Nk93V4pOlDEnwN_KTM18g/exec';
 
 const form = document.querySelector('#participantForm');
+const clubField = document.querySelector('#clubField');
 const referrerField = document.querySelector('#referrerField');
+const referrerClubField = document.querySelector('#referrerClubField');
+const clubInput = form.elements.club;
 const referrerInput = form.elements.referrer;
+const referrerClubInput = form.elements.referrerClub;
 const alertBox = document.querySelector('#alert');
 const successBox = document.querySelector('#success');
 const birthYearSelect = form.elements.birthYear;
@@ -32,6 +36,11 @@ form.querySelectorAll('.details-toggle').forEach(button => {
     const expanded = button.getAttribute('aria-expanded') === 'true';
     button.setAttribute('aria-expanded', String(!expanded));
     detail.hidden = expanded;
+
+    if (!expanded) {
+      const checkbox = button.closest('.consent-row')?.querySelector('input[type="checkbox"]');
+      if (checkbox) checkbox.disabled = false;
+    }
   });
 });
 
@@ -47,13 +56,31 @@ function setFieldError(name, message) {
 }
 
 function updateReferrerVisibility() {
-  const isExternal = form.querySelector('input[name="memberType"]:checked')?.value === '외부인';
-  referrerField.hidden = !isExternal;
-  referrerInput.required = isExternal;
+  const memberType = form.querySelector('input[name="memberType"]:checked')?.value;
+  const hasClub = memberType === '동아리';
+  const hasNoClub = memberType === '소속 없음';
+  clubField.hidden = !hasClub;
+  referrerField.hidden = !hasNoClub;
+  referrerClubField.hidden = !hasNoClub;
+  clubInput.required = hasClub;
+  referrerInput.required = hasNoClub;
+  referrerClubInput.required = hasNoClub;
 
-  if (!isExternal) {
+  if (hasClub) {
     referrerInput.value = '';
+    referrerClubInput.value = '';
     setFieldError('referrer', '');
+    setFieldError('referrerClub', '');
+  } else if (hasNoClub) {
+    clubInput.value = '';
+    setFieldError('club', '');
+  } else {
+    clubInput.value = '';
+    referrerInput.value = '';
+    referrerClubInput.value = '';
+    setFieldError('club', '');
+    setFieldError('referrer', '');
+    setFieldError('referrerClub', '');
   }
 }
 
@@ -74,8 +101,10 @@ function validateForm() {
     if (empty) {
       valid = false;
       const errorName = field.type === 'checkbox' ? 'consents' : field.name;
-      const message = field.type === 'checkbox'
-        ? '필수 동의 항목을 모두 확인해 주세요.'
+      const message = field.type === 'checkbox' && field.disabled
+        ? '동의 내용을 먼저 [보기]로 확인해 주세요.'
+        : field.type === 'checkbox'
+          ? '필수 동의 항목을 모두 확인해 주세요.'
         : field.type === 'radio'
           ? '필수 항목을 선택해 주세요.'
           : '필수 입력 항목이에요.';
@@ -186,6 +215,13 @@ form.addEventListener('submit', async event => {
     }
 
     form.reset();
+    form.querySelectorAll('.details-toggle').forEach(button => {
+      button.setAttribute('aria-expanded', 'false');
+      const detail = document.getElementById(button.getAttribute('aria-controls'));
+      if (detail) detail.hidden = true;
+      const checkbox = button.closest('.consent-row')?.querySelector('input[type="checkbox"]');
+      if (checkbox) checkbox.disabled = true;
+    });
     updateReferrerVisibility();
     updateAge();
     alert('참가 신청이 성공적으로 완료되었습니다!');
